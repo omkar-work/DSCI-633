@@ -1,4 +1,4 @@
-from my_DT import my_DT
+from my_dt import my_dt
 import pandas as pd
 
 if __name__ == "__main__":
@@ -9,7 +9,7 @@ if __name__ == "__main__":
     X = data_train[independent]
     y = data_train["Species"]
     # Train model
-    clf = my_DT()
+    clf = my_dt()
     clf.fit(X,y)
     # Load testing data
     data_test = pd.read_csv("../data/Iris_test.csv")
