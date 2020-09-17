@@ -19,13 +19,7 @@ class my_KNN:
         # y: list, np.array or pd.Series, dependent variables, int or str
         self.classes_ = list(set(list(y)))
         self.X = X
-        self.y = y
-#         for x in X[self.X.columns]:
-#             print(x)
-#         #print(X[self.X.columns])
-
-#         for x_next in self.X:
-#             print(x_next)
+        self.y = y        
         return
 
 
