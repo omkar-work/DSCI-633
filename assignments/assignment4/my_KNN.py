@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 from collections import Counter
-from scipy import spatial
 
 class my_KNN:
 
@@ -19,7 +18,7 @@ class my_KNN:
         # y: list, np.array or pd.Series, dependent variables, int or str
         self.classes_ = list(set(list(y)))
         self.X = X
-        self.y = y        
+        self.y = y
         return
 
 
@@ -34,9 +33,10 @@ class my_KNN:
         return np.sum(np.absolute(x1 - x2)) #+ np.absolute(x1[1] + x2[1]))
     
     def cosine_distance(self, x1, x2):
-        return spatial.distance.cosine(x1,x2)
-
-
+        num = np.dot(x1,x2)
+        den_x1 = np.sqrt(np.sum(x1 ** 2))
+        den_x2 = np.sqrt(np.sum(x2 ** 2))
+        return 1 - (num / (den_x1 * den_x2))
 
         
     def dist(self,x):
@@ -73,11 +73,12 @@ class my_KNN:
         # Output: Counter(labels of the self.n_neighbors nearest neighbors)
         
         distances = self.dist(x)
-        k_indices = np.argsort(distances)[:self.n_neighbors]
-        k_nearest_labels = [self.y[i] for i in k_indices]
-        op = Counter(k_nearest_labels)
+        indices_of_k = np.argsort(distances)[:self.n_neighbors]
+        k_nearest_labels = [self.y[i] for i in indices_of_k]
+        output = Counter(k_nearest_labels)
+        #print(output)
 
-        return op
+        return output
 
     def predict(self, X):
         # X: pd.DataFrame, independent variables, float
@@ -106,5 +107,7 @@ class my_KNN:
         probs = pd.DataFrame(probs, columns=self.classes_)
         
         return probs
+
+
 
 
