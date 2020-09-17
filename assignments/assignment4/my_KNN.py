@@ -40,11 +40,8 @@ class my_KNN:
         return np.sum(np.absolute(x1 - x2)) #+ np.absolute(x1[1] + x2[1]))
     
     def cosine_distance(self, x1, x2):
-        #return (np.dot(x1 , x2) / (np.abs(x1) * np.abs(x2)))
-#         up = np.dot(x1,x2)
-#         down = np.absolute(x1) * np.absolute(x2)
         return spatial.distance.cosine(x1,x2)
-#         return up/down
+
 
 
         
