@@ -115,6 +115,13 @@ class my_GA:
                     objs_crossval += objs
 
             #output ranges in 0.007 with division and is near to expected without division.
+
+            #--------_Without division----------
+            #[array([0.96825397, 0.97222222]), array([0.96825397, 0.97222222]), array([0.97333333, 0.97222222])]
+
+            #---------With division-----------
+            #[array([0.00740741, 0.00740741]), array([0.00740741, 0.00740741]), array([0.00740741, 0.00740741]), array([0.00740741, 0.00740741]), array([0.00740741, 0.00740741]), array([0.00740741, 0.00740741]), array([0.00740741, 0.00740741]), array([0.00740741, 0.00740741]), array([0.00740741, 0.00740741]), array([0.00740741, 0.00740741])]
+
             objs_crossval = objs_crossval #/ float(len(self.data_y))
             self.evaluated[decision] = objs_crossval
             # print("Problem maybe "+str(self.evaluated[decision]))
