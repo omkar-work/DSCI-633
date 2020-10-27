@@ -140,6 +140,8 @@ class my_GA:
 
         if runningTotal > 0:
             return 1
+        elif runningTotal == 0:
+            return 0
         else:
             return -1
         # write your own code below
@@ -163,7 +165,7 @@ class my_GA:
         modified = False
         for i in range(len(pf_best)):
             for j in range(len(pf_new)):
-                if (self.is_better((pf_best[i]), pf_new[j])) == 1:
+                if (self.is_better(pf_new[j], pf_best[i])) == 1:
                     pf_best[i] = pf_new[j]
                     pf_new.pop(j)
                     modified = True
@@ -172,7 +174,7 @@ class my_GA:
         for j in range(len(pf_new)):
             not_dominated = True
             for i in range(len(pf_best)):
-                if self.is_better(pf_best[i], pf_new[j]) == -1:
+                if (self.is_better(pf_new[j], pf_best[i])) == -1:
                     not_dominated = False
                     break
             if not_dominated:
@@ -233,7 +235,8 @@ class my_GA:
         def cross(a, b):
             new_point = []
             for i in range(len(a)):
-                randomNum = np.random.randint(0, 1)
+                randomNum = np.random.randint(0, 2)
+                print(randomNum)
                 if randomNum == 0:
                     new_point.append(a[i])
                 else:
@@ -241,10 +244,11 @@ class my_GA:
             return tuple(new_point)
 
         to_add = []
-
-        for _ in range(self.generation_size - self.lenGen):
-            ids = np.random.choice(self.lenGen, 2, replace=False)
-            # print(self.generation[ids[0]], self.generation[ids[1]])
+        print("Gen size = "+str(self.generation_size))
+        print("LenGen = "+str(len(self.generation)))
+        for _ in range(self.generation_size - len(self.generation)):
+            ids = np.random.choice(len(self.generation), 2, replace=False)
+            print(self.generation[ids[0]], self.generation[ids[1]])
             new_point = cross(self.generation[ids[0]], self.generation[ids[1]])
             # print(new_point)
             to_add.append(new_point)
