@@ -114,7 +114,8 @@ class my_GA:
                 else:
                     objs_crossval += objs
 
-            objs_crossval = objs_crossval #/ float(self.crossval_fold)#/ float(len(self.data_y))
+            #output ranges in 0.007 with division and is near to expected without division.
+            objs_crossval = objs_crossval #/ float(len(self.data_y))
             self.evaluated[decision] = objs_crossval
             # print("Problem maybe "+str(self.evaluated[decision]))
         return self.evaluated[decision]
@@ -128,8 +129,6 @@ class my_GA:
             return 0
         obj_a = self.evaluate(a)
         obj_b = self.evaluate(b)
-
-
 
         runningTotal = 0
         for count in range(len(obj_a)): #keep track of whether each element is > or < than corresponding element for a and b
