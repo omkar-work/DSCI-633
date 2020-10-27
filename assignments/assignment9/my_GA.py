@@ -132,7 +132,7 @@ class my_GA:
 
 
         runningTotal = 0
-        for count in range(len(obj_a)):
+        for count in range(len(obj_a)): #keep track of whether each element is > or < than corresponding element for a and b
             if obj_a[count] > obj_b[count]:
                 runningTotal += 1
             elif obj_a[count] < obj_b[count]:
@@ -223,9 +223,6 @@ class my_GA:
                 # print(self.generation)
             else:
                 self.generation = self.pf[:]
-            #     print("in else")
-            # print("End of select")
-            # print(self.generation)
         return
 
     def crossover(self):
