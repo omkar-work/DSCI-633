@@ -57,7 +57,7 @@ class my_GA:
         ######################
         # check if size of generation is correct
         self.lenGen = len(self.generation)
-        assert (self.lenGen == self.generation_size)
+        assert (len(self.generation) == self.generation_size)
         # print(self.generation)
 
         # e.g. decision_boundary = [("gini", "entropy"), [1, 16], [0, 0.1]] for my_DT means:
@@ -114,7 +114,7 @@ class my_GA:
                 else:
                     objs_crossval += objs
 
-            objs_crossval = objs_crossval #/ float(len(self.data_y))
+            objs_crossval = objs_crossval #/ float(self.crossval_fold)#/ float(len(self.data_y))
             self.evaluated[decision] = objs_crossval
             # print("Problem maybe "+str(self.evaluated[decision]))
         return self.evaluated[decision]
@@ -128,6 +128,8 @@ class my_GA:
             return 0
         obj_a = self.evaluate(a)
         obj_b = self.evaluate(b)
+
+
 
         runningTotal = 0
         for count in range(len(obj_a)):
@@ -165,7 +167,7 @@ class my_GA:
         modified = False
         for i in range(len(pf_best)):
             for j in range(len(pf_new)):
-                if (self.is_better(pf_new[j], pf_best[i])) == 1:
+                if (self.is_better(pf_best[i], pf_best[j])) == 1:
                     pf_best[i] = pf_new[j]
                     pf_new.pop(j)
                     modified = True
@@ -193,7 +195,7 @@ class my_GA:
         # print("Inside select")
         # #print(self.generation)
         # print("This "+str(self.evaluate(self.generation[0])))
-        if len(self.evaluate(self.generation[0])) == 1:
+        if (self.evaluate(self.generation[0])).size == 1:   #used size because len() was throwing error : TypeError: len() of unsized object
             selected = np.argsort([self.evaluate(x)[0] for x in self.generation])[::-1][
                        :int(np.ceil(self.selection_rate * self.generation_size))]
             self.pf = [self.generation[selected[0]]]
@@ -236,7 +238,7 @@ class my_GA:
             new_point = []
             for i in range(len(a)):
                 randomNum = np.random.randint(0, 2)
-                print(randomNum)
+                #print(randomNum)
                 if randomNum == 0:
                     new_point.append(a[i])
                 else:
@@ -244,11 +246,12 @@ class my_GA:
             return tuple(new_point)
 
         to_add = []
-        print("Gen size = "+str(self.generation_size))
-        print("LenGen = "+str(len(self.generation)))
+        # print("Gen size = "+str(self.generation_size))
+        # print("LenGen = "+str(len(self.generation)))
         for _ in range(self.generation_size - len(self.generation)):
             ids = np.random.choice(len(self.generation), 2, replace=False)
-            print(self.generation[ids[0]], self.generation[ids[1]])
+            # print("Inside crossover")
+            # print(self.generation[ids[0]], self.generation[ids[1]])
             new_point = cross(self.generation[ids[0]], self.generation[ids[1]])
             # print(new_point)
             to_add.append(new_point)
@@ -256,7 +259,7 @@ class my_GA:
         self.generation.extend(to_add)
         ######################
         # check if size of generation is correct
-        assert (self.lenGen == self.generation_size)
+        assert (len(self.generation) == self.generation_size)
         return self.generation
 
     def mutate(self):
