@@ -37,7 +37,7 @@ class my_model():
 		
 		#knn_grid = {"n_neighbors": [3,5,7],"weights": ["uniform","distance"],"p": [1,2]}
 		
-		self.clf = SGDClassifier(class_weight = "balanced",shuffle = True, random_state = 25,max_iter=2000,warm_start=True)
+		self.clf = SGDClassifier(class_weight = "balanced",shuffle = True, random_state = 20,max_iter=3000,warm_start=True)
 
 		sg_grid = {"penalty": ["l1","l2","elasticnet"]}
 		rf_grid = {"max_depth": [10, 15, 25, 35, 45,55,65],
