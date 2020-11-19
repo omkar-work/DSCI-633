@@ -26,7 +26,7 @@ class my_model():
 		self.y_data_class = y
 		X = self.clean_training_data(X)
 
-		self.preprocessor = TfidfVectorizer(stop_words='english', norm='l2', use_idf=False, smooth_idf=False,ngram_range=(1,5))
+		self.preprocessor = TfidfVectorizer(stop_words='english', norm='l2', use_idf=True, smooth_idf=True,ngram_range=(1,5))
 		XX = self.preprocessor.fit_transform(X["description"])
 
 		desc = self.preprocessor.fit_transform(X["description"])
